@@ -42,12 +42,12 @@ public class CodeServiceResourceController {
 			LOGGERS.info("AppCodeForm Info "+appCode.toString());
 		AppCodeResponseForm appCodeResponse=null;
 		String gereateId=TACGenerator.generateOTP(16);
+		
 		EDRS.info("CODE_REQ"+"|"+gereateId+"|"+appCode.getAppCode()+"|"+appCode.getClientCode()+"|"+appCode.getClientId()+"|"+appCode.getCampName()+"|"+appCode.getProductName()+"|"+new Date());
 			String validateStatus= validate(appCode);
 			appCodeResponse=new AppCodeResponseForm();
 			if("0".equalsIgnoreCase(validateStatus)){
 				try {
-					
 					Integer userStatus=codesServiceIF.userDetailsInfo(appCode.getUsername(), appCode.getPassword());
 					if("0".equalsIgnoreCase(String.valueOf(userStatus))){
 						userStatus=codesServiceIF.clientDetailsInfo(appCode.getClientId(),appCode.getClientCode());
